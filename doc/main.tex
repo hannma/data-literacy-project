@@ -46,7 +46,7 @@
 \usepackage{bibentry}
 \nobibliography*
 
-\title{Impact of most Common Food Categories on\\ Green House Gas Emissions}
+\title{Can one save the planet by eating fewer animal products?}
 
 
 \author{%
@@ -87,7 +87,7 @@
 \section{Introduction}
 
 Climate change threatens everyone. In order to avoid a climate disaster, radical change is needed. This concerns everything, from policies on a global and national level, to choices taken by the individual on a daily basis. 
-However, individuals motivated and willing to solve climate change by pursueing a sustainable life are faced with many obstacles to do so effortlessly. Food, energy and water is what the UN refer to as the culprit for a sustainable world, who's population has expanded and who's demand has increased for  all three of the aforementioned  \cite{Ritchie2020}.
+However, individuals motivated and willing to solve climate change by pursueing a sustainable life are faced with many obstacles to do so effortlessly. Food, energy and water is what the UN refer to as the culprit for a sustainable world, whose population has expanded and whose demand has increased for all three of the aforementioned  \cite{Ritchie2020}.
  Importantly, food systems are responsible for a third of global anthropogenic greenhouse gas emissions \cite{Crippa2021}. At the same time, food choices are to a large extent up to the individuum.  Tragically,  the emission of food options are not handily accessible to the individuum, which is why one is not able to take an informed climate friendly food decision. This shows that a significant lever contributing to solving climate change is not pulled!
 \paragraph*{Research Question}
 Therefore, we investigate the environmental impact of the most common food categories, which is a first step towards  providing more information in the jungle of food choices that everybody is presented with. In particular, we hypothesize that  plant-based diets  have a significantly smaller CO$_2$-footprint than  diets including animal-derived products in the typical Western diet. .
@@ -122,12 +122,45 @@ We substituted  missing  data by taking the mean of the existing values of the r
 \section{Analysis}
 \label{analysis}
 
+A walkthrough of the analysis of the data can be seen in the two notebooks contained in the Github repository for the research:
+
+\begin{itemize}
+    \item \textbf{data\_exploration.ipynb}: notebook containing data exploration and hypothesis testing
+    \item \textbf{example\_diets.ipynb}: notebook containing a comparison between two hand crafted daily diets
+\end{itemize}
+
+We started by reading the data and drawing some relevant plots that give an initial insight about the difference between plant based food and animal derivatives. From the correlation plot in Figure \ref{fig:corr}, we can clearly notice that a food being plant based is inversely correlated to every other column (every emission type). This provides an initial clue that the hypothesis described by this research might be realistic. 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\textwidth]{figures/heat-map.pdf}
-  \caption{Some caption text.}
+  \includegraphics[width=0.65\textwidth]{figures/heat-map.pdf}
+  \caption{Correlation plot for the used data set}
+  \label{fig:corr}
 \end{figure}
+
+We can now continue by showing the distributions of the emissions in the two subsets of data, the one for plant based food and the one for the remaining food. We can observe from Figure \ref{fig:emissions} that the above mentioned distributions seem $\chi^2$-distributed, but we can logarithmically transform the data in order to obtain the better distributions on Figure \ref{fig:emissions-log}. These are more easily recognizable Gaussian-like distributions.
+
+Another important plot is the one regarding GHG emissions, and we can transform them in the same way we did with the total emissions. The log-transformed data is showed in Figure \ref{fig:ghg-log}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.65\textwidth]{figures/emissions.pdf}
+  \label{fig:emissions}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.65\textwidth]{figures/emissions-log.pdf}
+  \label{fig:emissions-log}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{figures/ghg-log.pdf}
+    \label{fig:ghg-log}
+\end{figure}
+
+In both the two pairs of Gaussian like distributions, we can observe that animal products tend to have a distribution centered more towards the high values.
 
 \subsection{Average Emissions for Plant-based and Animal-based Products}
 \paragraph{Eutrophying emissions}
