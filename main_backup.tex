@@ -46,7 +46,7 @@
 \usepackage{bibentry}
 \nobibliography*
 
-\title{Can one save the planet by eating fewer animal products?}
+\title{Impact of most Common Food Categories on\\ Green House Gas Emissions}
 
 
 \author{%
@@ -122,45 +122,12 @@ We substituted  missing  data by taking the mean of the existing values of the r
 \section{Analysis}
 \label{analysis}
 
-A walkthrough of the analysis of the data can be seen in the two notebooks contained in the Github repository for the research:
-
-\begin{itemize}
-    \item \textbf{data\_exploration.ipynb}: notebook containing data exploration and hypothesis testing
-    \item \textbf{example\_diets.ipynb}: notebook containing a comparison between two hand crafted daily diets
-\end{itemize}
-
-We started by reading the data and drawing some relevant plots that give an initial insight about the difference between plant based food and animal derivatives. From the correlation plot in Figure \ref{fig:corr}, we can clearly notice that a food being plant based is inversely correlated to every other column (every emission type). This provides an initial clue that the hypothesis described by this research might be realistic. 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.65\textwidth]{figures/heat-map.pdf}
-  \caption{Correlation plot for the used data set}
-  \label{fig:corr}
+  \includegraphics[width=0.75\textwidth]{figures/heat-map.pdf}
+  \caption{Some caption text.}
 \end{figure}
-
-We can now continue by showing the distributions of the emissions in the two subsets of data, the one for plant based food and the one for the remaining food. We can observe from Figure \ref{fig:emissions} that the above mentioned distributions seem $\chi^2$-distributed, but we can logarithmically transform the data in order to obtain the better distributions on Figure \ref{fig:emissions-log}. These are more easily recognizable Gaussian-like distributions.
-
-Another important plot is the one regarding GHG emissions, and we can transform them in the same way we did with the total emissions. The log-transformed data is showed in Figure \ref{fig:ghg-log}.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.65\textwidth]{figures/emissions.pdf}
-  \label{fig:emissions}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.65\textwidth]{figures/emissions-log.pdf}
-  \label{fig:emissions-log}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics{figures/ghg-log.pdf}
-    \label{fig:ghg-log}
-\end{figure}
-
-In both the two pairs of Gaussian like distributions, we can observe that animal products tend to have a distribution centered more towards the high values.
 
 \subsection{Average Emissions for Plant-based and Animal-based Products}
 \paragraph{Eutrophying emissions}
