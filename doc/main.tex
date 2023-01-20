@@ -46,7 +46,7 @@
 \usepackage{bibentry}
 \nobibliography*
 
-\title{Can one save the planet by eating fewer animal products?}
+\title{Can Plant-based Diets Help Solve Climate Change?}
 
 
 \author{%
@@ -97,11 +97,11 @@ Therefore, we investigate the environmental impact of the most common food categ
 \paragraph{Data generating process} \label{dataGen}
 The data used in this analysis  is the largest meta-analysis of food systems to date and was published in the journal \textit{Science} by \citet{Poore2018}.
 570 studies met the eleven criteria\footnote{Such as  methodologies used were standardized, e.g., that all stages of the supply chain were considered.} \citet{Poore2018}  were applying to the initially  1530 studies.
-The final dataset covers approximately 38,700 farms across 119 countries and spans a total of 40 food products, which represent approximately 90\% of global protein and calorie intake. The breadth of this analysis ensures that results are only minimally biased towards any geographic region, or are reflective of any particular faming method or income level.
+The final dataset covers approximately 38,700 farms across 119 countries and spans a total of 40 food products, which represent approximately 90\% of global protein and calorie intake. The breadth of this analysis ensures that results are only minimally biased towards any geographic region,  any particular faming method or income level.
 \paragraph*{Greenhouse gases (GHG) and how they are quantified}
 Since there are many different greenhouse gases (GHG), researchers commonly aggregate them into a measurement that is easy to use for comparisons. 
 \citet{Poore2018} use the metric 
-''carbon dioxide-equivalents (CO$_{2}$eq)'', which is the most common measurement and is for instance  also used as a target-setting metric in official reportings like the Paris Agreement. CO$_{2}$eq express the "global warming potential" by aggregating the impact of all GHG into a single metric  and  aims to represent the amount of warming that each specific gas generates relative to CO$_2$. The "global warming potential over a $100$-year timescale (GWP$_{100}$) expresses the mid- to longterm period for climate-policies. CO$_{2}$eq is calculated as follows: 
+``carbon dioxide-equivalents (CO$_{2}$eq)'', which is the most common measurement and is for instance  also used as a target-setting metric in official reportings like the Paris Agreement. CO$_{2}$eq express the ``global warming potential'' by aggregating the impact of all GHG into a single metric  and  aims to represent the amount of warming that each specific gas generates relative to CO$_2$. The ``global warming potential over a $100$-year timescale (GWP$_{100}$)'' expresses the mid- to longterm period for climate-policies. To calculate the CO$_{2}$eq-value, the amount of each GHG needs to factorized by its GWP$_{100}$-value. For example, the Intergovernmental Panel on Climate Change (IPCC) sets the GWP$_{100}$-value of the GHG  methane to $28$, which is based on the rationale that methane's global warming impact over a period of 100 years, will be $28$ times higher than that of one kilogram of CO$_2$.
 \paragraph{Stages of supply chain}
 Note: only if included in analysis
 % Land use change; 
@@ -122,31 +122,59 @@ We substituted  missing  data by taking the mean of the existing values of the r
 \section{Analysis}
 \label{analysis}
 
-A walkthrough of the analysis of the data can be seen in the two notebooks contained in the Github repository for the research:
+To get an overview as to which features of the dataset provide most information, we calculated the pairwise correlation of a subset of features. Given a pair of random variables $(X,Y)$, the population Pearson correlation coefficient is: 
+\begin{equation} \label{eq:corr}
+  \rho_{X,Y} = \frac{cov(X,Y)}{\sigma_X \sigma_Y}
+\end{equation}
+where $cov(X,Y)$ is the covariance, $\sigma_X$ is the standard deviation of $X$ and $\sigma_Y$ is the standard deviation of $Y$.
+\Cref{eq:corr} applied to the features is depicted  as a heat-map in  \Cref{fig:corr}.  \Cref{fig:corr} illustrates that
+plant-based products are strongly correlated ($|\rho| \in [1.00 - 0.5]$) with every other feature except for \textit{Transport} and \textit{Packaging}. This is indicative of our hypothesis that plant-based products emit significantly less than animal-derived products stated in  \Cref*{data}.
 
-\begin{itemize}
-    \item \textbf{data\_exploration.ipynb}: notebook containing data exploration and hypothesis testing
-    \item \textbf{example\_diets.ipynb}: notebook containing a comparison between two hand crafted daily diets
-\end{itemize}
-
-We started by reading the data and drawing some relevant plots that give an initial insight about the difference between plant based food and animal derivatives. From the correlation plot in Figure \ref{fig:corr}, we can clearly notice that a food being plant based is inversely correlated to every other column (every emission type). This provides an initial clue that the hypothesis described by this research might be realistic. 
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.65\textwidth]{figures/heat-map.pdf}
-  \caption{Correlation plot for the used data set}
+  \caption{Correlation of a subset of features depicted in a heat-map. Plant-based products are  correlated ($|\rho| \in [1.00, 0.5]$) with every other feature except for \textit{Transport} and \textit{Packaging}.}
   \label{fig:corr}
 \end{figure}
 
-We can now continue by showing the distributions of the emissions in the two subsets of data, the one for plant based food and the one for the remaining food. We can observe from Figure \ref{fig:emissions} that the above mentioned distributions seem $\chi^2$-distributed, but we can logarithmically transform the data in order to obtain the better distributions on Figure \ref{fig:emissions-log}. These are more easily recognizable Gaussian-like distributions.
+\subsection*{Hypothesis Testing}
+In order  to decide as to whether the data supports our hypothesis, we will run a T-test, which tests, if the two distributions have equal means (Null-hypothesis). W Since the samples are neither of same size, nor of same variance and are assumed to be independent, we opt for the independent unequal variance T-Test, also known as \textit{Welch's Test}. %\cite{WelchTest}. 
+%\cite{WelchTest} 
+The test-statistic is computed as follows:
+\begin{equation}\label{eq:t-test}
+  t = \frac{\bar{X}-\bar{Y}}{\sqrt{\sigma^2_{X}+\sigma^2_{Y}}}
+\end{equation}
+where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard deviation $\sigma_{X,Y}$.
 
-Another important plot is the one regarding GHG emissions, and we can transform them in the same way we did with the total emissions. The log-transformed data is showed in Figure \ref{fig:ghg-log}.
+\subsubsection*{Do plant- and non-plant-based food products significantly differ w.r.t. their total emissions?}
 
-\begin{figure}[h]
+
+ We will consider \textit{plant-based} and \textit{not plant-based} w.r.t.  the two features \textit{Total emissions} and \textit{GHG} respectively.
+\paragraph*{Kernel-density-estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we should first check the distribution family that  our data belongs to, in order to make sure that the selected test is appropriate. We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. Plant-based and not-plant-based food categories are depicted w.r.t their total emissions in \Cref*{fig:emissions}.
+\begin{figure}[h]\label{fig:emissions}
   \centering
   \includegraphics[width=0.65\textwidth]{figures/emissions.pdf}
   \label{fig:emissions}
 \end{figure}
+Analyzing \Cref{fig:emisissions}, two things can be concluded: First, our hypothesis, that the plant-based and animal-based food products have two different underlying distributions can be confirmed. Second, the distribution over total emissions of plant-based products clearly does not follow a Gaussian distribution. 
+
+\paragraph*{Data-transformation}
+In order to transform the data to Gaussian-like distributions, we apply the logarithm with basis $10$ to the data. We can do this, since the logarithm is a monotonic function and will hence not shift the location of the mean. Applying the logarithm, we obtain the kernel density estimation depicted in \Cref{fig:emissions-log} 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.65\textwidth]{figures/emissions-log.pdf}
+  \label{fig:emissions-log}
+\end{figure}
+
+
+\subsubsection*{Accounting  for Nutritional Value: Do plant- and non-plant-based food products significantly differ w.r.t. their GHG ?}
+
+
+Now, we will consider \textit{plant-based} and \textit{not plant-based} w.r.t.  the feature \textit{GHG}.
+
+
 
 \begin{figure}[h]
   \centering
@@ -160,48 +188,40 @@ Another important plot is the one regarding GHG emissions, and we can transform 
     \label{fig:ghg-log}
 \end{figure}
 
-In both the two pairs of Gaussian like distributions, we can observe that animal products tend to have a distribution centered more towards the high values.
 
-\subsection{Average Emissions for Plant-based and Animal-based Products}
-\paragraph{Eutrophying emissions}
-\paragraph{Accounting  for Nutritional Value}
-\paragraph{Comparing Typical Diets}
+
+\subsection{Comparing Typical Diets}
+\section{Results}
+\begin{table} \label{tbl:results}
+  \caption{Results of applying Welch's Hypothesis Test}
+  \label{sample-table}
+  \centering
+  \begin{tabular}{lllll}
+    \toprule
+    \multicolumn{1}{c}{}&\multicolumn{2}{c}{Plant-based} &\multicolumn{2}{c}{Animal-based}                   \\
+    \cmidrule(r){2-5}
+    Feature     & Test-Statistic   & $\alpha$  & Test-Statistic  & $\alpha$\\
+    \midrule
+    Total Emissions & Input terminal  & $\sim$100     \\
+    GHG     & Output terminal & $\sim$10      \\
+  
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Conclusion}
 \label{conclusion}
 
 
-\section{Limitations}
+\section{Limitations and Outlook}
 \label{limitations}
+How methane is treated which is a shorter-lived, but more powerful greenhouse gas than CO2  is often discussed.
 
-\subsection{Tables}
+Unfortunately data is not available to present this breakdown by country or region
+
+Compare difference between the worst and best producers. This means there is an opportunity to reduce the impacts of food production by optimizing for the lowest-impact producers. However, what is also clear is that this does not change the ordering of the impacts of different foods. It's still the case that nearly all beef and lamb producers have a high carbon footprint higher than plant-based alternatives, even if we opt for the best(lowest-impact) producers.
 
 
-
-Note that publication-quality tables \emph{do not contain vertical rules.} We
-strongly suggest the use of the \verb+booktabs+ package, which allows for
-typesetting high-quality, professional tables:
-\begin{center}
-  \url{https://www.ctan.org/pkg/booktabs}
-\end{center}
-This package was used to typeset Table~\ref{sample-table}.
-
-\begin{table}
-  \caption{Sample table title}
-  \label{sample-table}
-  \centering
-  \begin{tabular}{lll}
-    \toprule
-    \multicolumn{2}{c}{Part}                   \\
-    \cmidrule(r){1-2}
-    Name     & Description     & Size ($\mu$m) \\
-    \midrule
-    Dendrite & Input terminal  & $\sim$100     \\
-    Axon     & Output terminal & $\sim$10      \\
-    Soma     & Cell body       & up to $10^6$  \\
-    \bottomrule
-  \end{tabular}
-\end{table}
 
 
 \section*{Broader Impact}
@@ -215,22 +235,6 @@ This package was used to typeset Table~\ref{sample-table}.
 
 
 
-\section*{Literature}
-
-List of selected central research literature that the project is based on.
-
-
-\begin{itemize}
-  \item \bibentry{Ritchie2020}
-  \item \bibentry{Michigan2021}
-  \item test \citet{WHO2021}
-\end{itemize}
-
-\subsection{Related Literature}
-\begin{itemize}
-  \item \bibentry{Pieper2020}
-  %\item \bibentry{Felix2021}
-\end{itemize}
 
 
 {\small
