@@ -151,13 +151,13 @@ where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard devi
 
 
  We will consider \textit{plant-based} and \textit{not plant-based} w.r.t.  the two features \textit{Total emissions} and \textit{GHG} respectively.
-\paragraph*{Kernel-density-estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we should first check the distribution family that  our data belongs to, in order to make sure that the selected test is appropriate. We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. Plant-based and not-plant-based food categories are depicted w.r.t their total emissions in \Cref*{fig:emissions}.
+\paragraph*{Kernel-density-estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we should first check the distribution family that  our data belongs to, in order to make sure that the selected test is appropriate. We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. Plant-based and not-plant-based food categories are depicted w.r.t their total emissions in \Cref{fig:emissions}.
 \begin{figure}[h]\label{fig:emissions}
   \centering
   \includegraphics[width=0.65\textwidth]{figures/emissions.pdf}
   \label{fig:emissions}
 \end{figure}
-Analyzing \Cref{fig:emisissions}, two things can be concluded: First, our hypothesis, that the plant-based and animal-based food products have two different underlying distributions can be confirmed. Second, the distribution over total emissions of plant-based products clearly does not follow a Gaussian distribution. 
+Analyzing \Cref{fig:emissions}, two things can be concluded: First, our hypothesis, that the plant-based and animal-based food products have two different underlying distributions can be confirmed. Second, the distribution over total emissions of plant-based products clearly does not follow a Gaussian distribution. 
 
 \paragraph*{Data-transformation}
 In order to transform the data to Gaussian-like distributions, we apply the logarithm with basis $10$ to the data. We can do this, since the logarithm is a monotonic function and will hence not shift the location of the mean. Applying the logarithm, we obtain the kernel density estimation depicted in \Cref{fig:emissions-log} 
@@ -169,7 +169,7 @@ In order to transform the data to Gaussian-like distributions, we apply the loga
 \end{figure}
 
 
-\subsubsection*{Accounting  for Nutritional Value: Do plant- and non-plant-based food products significantly differ w.r.t. their GHG ?}
+\subsubsection*{Accounting  for Nutritional Value: Do plant- and non-plant-based food products significantly differ w.r.t. their GHG?}
 
 
 Now, we will consider \textit{plant-based} and \textit{not plant-based} w.r.t.  the feature \textit{GHG}.
@@ -219,23 +219,13 @@ How methane is treated which is a shorter-lived, but more powerful greenhouse ga
 Unfortunately data is not available to present this breakdown by country or region
 
 Compare difference between the worst and best producers. This means there is an opportunity to reduce the impacts of food production by optimizing for the lowest-impact producers. However, what is also clear is that this does not change the ordering of the impacts of different foods. It's still the case that nearly all beef and lamb producers have a high carbon footprint higher than plant-based alternatives, even if we opt for the best(lowest-impact) producers.
-
-
-
-
-\section*{Broader Impact}
-
 \begin{itemize}
-\item reducing GHG
-\item animal welfare
-\item biodiversity
-\item Health: While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient w.r.t providing recommended micronutiernt levels (e.g. vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutirent insufficiencies. 
-\end{itemize}
-
-
-
-
-
+  \item reducing GHG
+  \item animal welfare
+  \item biodiversity
+  \item Health: While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient w.r.t providing recommended micronutiernt levels (e.g. vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutirent insufficiencies. 
+  \end{itemize}
+  
 {\small
 \bibliographystyle{unsrtnat}
 \bibliography{../literature/references.bib}
