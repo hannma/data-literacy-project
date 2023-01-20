@@ -55,10 +55,10 @@
   University of Tübingen\\
   \texttt{hanna.dettki@student.uni-tuebingen.de} \\
   \And
-  Davide $^{*}$  \\
+  Davide Mornatta$^{*}$  \\
   Department of Computer Science\\
   University of Tübingen\\
-  \texttt{@student.uni-tuebingen.de} \\
+  \texttt{davide.mornatta@student.uni-tuebingen.de} \\
   % \AND
   % Coauthor \\
   % Affiliation \\
@@ -86,9 +86,9 @@
 
 \section{Introduction}
 
-Climate change threatens everyone. In order to avoid a climate disaster, radical change is needed. This concerns everything, from policies on a global and national level, to choices taken by the individual on a daily basis. 
-However, individuals motivated and willing to solve climate change by pursueing a sustainable life are faced with many obstacles to do so effortlessly. Food, energy and water is what the UN refer to as the culprit for a sustainable world, whose population has expanded and whose demand has increased for all three of the aforementioned  \cite{Ritchie2020}.
- Importantly, food systems are responsible for a third of global anthropogenic greenhouse gas emissions \cite{Crippa2021}. At the same time, food choices are to a large extent up to the individuum.  Tragically,  the emission of food options are not handily accessible to the individuum, which is why one is not able to take an informed climate friendly food decision. This shows that a significant lever contributing to solving climate change is not pulled!
+Climate change presents a major global threat. In order to avoid a climate disaster, radical change is needed. This concerns everything, from policies on a global and national level, to choices taken by the individual on a daily basis. \textcolor{red}{TODO: citation}
+However, individuals motivated and willing to solve climate change by pursueing a sustainable life are faced with many obstacles to do so effortlessly. According to the UN, food, energy and water are the culprits for an unsustainable world, in particular in light of rapid population growth \cite{Ritchie2020}.
+ Importantly, food systems are responsible for a third of global anthropogenic greenhouse gas emissions \cite{Crippa2021}. At the same time, food choices are to a large extent up to the individual.  However,  the emission cost of different food options are  typically not accessible, which is why individuals are  not easily able to adhere to  a climate-friendly diet. This shows that a significant lever contributing to solving climate change is not pulled.
 \paragraph*{Research Question}
 Therefore, we investigate the environmental impact of the most common food categories, which is a first step towards  providing more information in the jungle of food choices that everybody is presented with. In particular, we hypothesize that  plant-based diets  have a significantly smaller CO$_2$-footprint than  diets including animal-derived products in the typical Western diet.
 
@@ -114,7 +114,7 @@ Since there are many different greenhouse gases (GHG), researchers commonly aggr
 
 
 
-\paragraph{Dataset adaptions and handling of missing data}
+\paragraph{Dataset modifications and handling of missing data}
 
 We substituted  missing  data by taking the mean of the existing values of the respecting feature. To facilitate data queries, we added a column "Plant-based", which holds binary values $[0,1]$ and indicates whether a product is plant-based $(1)$ or animal-derived $(0)$.
 
@@ -127,32 +127,35 @@ To get an overview as to which features of the dataset provide most information,
   \rho_{X,Y} = \frac{cov(X,Y)}{\sigma_X \sigma_Y}
 \end{equation}
 where $cov(X,Y)$ is the covariance, $\sigma_X$ is the standard deviation of $X$ and $\sigma_Y$ is the standard deviation of $Y$.
-\Cref{eq:corr} applied to the features is depicted  as a heat-map in  \Cref{fig:corr}.  \Cref{fig:corr} illustrates that
-plant-based products are strongly correlated ($|\rho| \in [1.00 - 0.5]$) with every other feature except for \textit{Transport} and \textit{Packaging}. This is indicative of our hypothesis that plant-based products emit significantly less than animal-derived products stated in  \Cref*{data}.
+\Cref{eq:corr} applied to the features is depicted  as a heatmap in  \Cref{fig:corr}.  \Cref{fig:corr} illustrates that
+plant-based products are strongly anti-correlated with total emissions ($\rho =  -0.600367$).%with features commonly associated with contributing to the total emissions other feature except for \textit{Transport} and \textit{Packaging}. 
+This is indicative of our hypothesis that plant-based products emit significantly less than animal-derived products stated in  \Cref*{data}.
 
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.65\textwidth]{figures/heat-map.pdf}
-  \caption{Correlation of a subset of features depicted in a heat-map. Plant-based products are  correlated ($|\rho| \in [1.00, 0.5]$) with every other feature except for \textit{Transport} and \textit{Packaging}.}
+  \caption{Correlation of a subset of features depicted in a heatmap. Plant-based products are  anti-correlated ($\rho \in [-1.0, -0.5]$) with every other feature, in particular \textit{Total Emissions}, with the  exception of \textit{Transport} and \textit{Packaging}.}
   \label{fig:corr}
 \end{figure}
-The code to the data-pre-processing and analysis can be found here: \url{https://github.com/hannma/data-literacy-project.git}.
+The code to the data preprocessing and analysis can be found at: \par
+\centerline{\url{https://github.com/hannma/data-literacy-project.git}}
 
 \subsection*{Hypothesis Testing}
-In order  to decide as to whether the data supports our hypothesis, we will run a T-test, which tests, if the two distributions have equal means (Null-hypothesis). W Since the samples are neither of same size, nor of same variance and are assumed to be independent, we opt for the independent unequal variance T-Test, also known as \textit{Welch's Test}. %\cite{WelchTest}. 
+In order  to decide as to whether the data supports our hypothesis, we will run a T-test, which tests, if the two distributions have equal means (Null-hypothesis).  Since the samples are neither of same size, nor of same variance and are assumed to be independent, we opt for the independent unequal variance T-Test, also known as \textit{Welch's Test}. %\cite{WelchTest}. 
 %\cite{WelchTest} 
 The test-statistic is computed as follows:
 \begin{equation}\label{eq:t-test}
   t = \frac{\bar{X}-\bar{Y}}{\sqrt{\sigma^2_{X}+\sigma^2_{Y}}}
 \end{equation}
-where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard deviation $\sigma_{X,Y}$.
+where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard deviations $\sigma_{X}$ and $\sigma_{Y}$.
 
-\subsubsection*{Do plant- and non-plant-based food products significantly differ w.r.t. their total emissions?}
+\subsubsection*{Do plant- and non-plant-based food products significantly differ with respect to their total emissions?}
 
 
- We will consider \textit{plant-based} and \textit{not plant-based} w.r.t.  the two features \textit{Total emissions} and \textit{GHG (kgCO2eq per 1000kcal)} respectively.
-\paragraph*{Kernel-density-estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we should first check the distribution family that  our data belongs to, in order to make sure that the selected test is appropriate. We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. Plant-based and not-plant-based food categories are depicted w.r.t their total emissions in \Cref{fig:emissions}.
+ We will consider \textit{plant-based} and \textit{not plant-based} with respect to  the two features \textit{Total emissions} and \textit{GHG (kgCO2eq per 1000kcal)} respectively.
+\paragraph*{Kernel density estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we have to ensure that our assumption of Gaussian distributed data is reasonable.  We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. \textcolor{red}{TODO: citation seaborn} Plant-based and not-plant-based food categories are depicted with respect to their total emissions in \Cref{fig:emissions}.
+\textcolor{red}{TODO: move image title to figure caption}
 \begin{figure}[h]\label{fig:emissions}
   \centering
   \includegraphics[width=0.65\textwidth]{figures/emissions.pdf}
@@ -160,8 +163,8 @@ where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard devi
 \end{figure}
 Analyzing \Cref{fig:emissions}, two things can be concluded: First, our hypothesis, that the plant-based and animal-based food products have two different underlying distributions can be confirmed. Second, the distribution over total emissions of plant-based products clearly does not follow a Gaussian distribution. 
 
-\paragraph*{Data-transformation}
-In order to transform the data to Gaussian-like distributions, we apply the logarithm with basis $10$ to the data. We can do this, since the logarithm is a monotonic function and will hence not shift the location of the mean. Applying the logarithm, we obtain the kernel density estimation depicted in \Cref{fig:emissions-log} 
+\paragraph*{Data transformation}
+We apply the logarithm with basis 10 to the data, which is non-negative. Applying the logarithm, we obtain the kernel density estimation depicted in \Cref{fig:emissions-log} 
 
 \begin{figure}[h]
   \centering
@@ -169,10 +172,11 @@ In order to transform the data to Gaussian-like distributions, we apply the loga
   \label{fig:emissions-log}
 \end{figure}
 
+The transformed data now seem to follow a  Gaussian distribution and we therefore apply the Welch's Test.
 
-\subsubsection*{Accounting  for Nutritional Value: Do plant- and non-plant-based food products significantly differ w.r.t. their GHG per 1000kcal?}
+\subsubsection*{Accounting  for Nutritional Value: Do plant- and non-plant-based food products significantly differ with respect to their GHG per 1000kcal?}
 
-Obviously it is very important that everybody has access to diets that meet all the nutritional requirements. This is why  we will now consider \textit{plant-based} and \textit{not plant-based} w.r.t. their nutritional value (feature \textit{GHG in kgCO2eq per 1000kcal}).
+Since it is very important that everybody has access to diets that meet all the nutritional requirements, we will now consider \textit{plant-based} and \textit{not plant-based} with respect to their nutritional value (feature \textit{GHG in kgCO2eq per 1000kcal}).
 
 
 
@@ -191,9 +195,9 @@ Obviously it is very important that everybody has access to diets that meet all 
 
 
 \subsection{Comparing Typical Diets}
-We now take an even more granular view at the nutritional value of (non) plant-based diets by considering two typical diets w.r.t. recommended macro-nutrient make-up (carbohydrates, fat, protein).
+We now take an even more granular view at the nutritional value of (non) plant-based diets by considering two typical diets with respect to recommended macro-nutrient make-up (carbohydrates, fat, protein).
 
-TODO: describe results
+\textcolor{red}{TODO: describe results}
 \section{Results}
 \begin{table} \label{tbl:results}
   \caption{Results of  Welch's Hypothesis Test}
@@ -205,8 +209,8 @@ TODO: describe results
     %\cmidrule(r){2-5}
     Feature     & Test-Statistic   & p-value  \\
     \midrule
-    Total Emissions &$\sim$6.49  & $\sim$0.00022\%    \\
-    GHG (kgCO2eq per 1000kcal)    & $\sim$5.03   & $\sim$0.0014\%   \\
+    Total Emissions &$\approx 6.49$  & $\approx 2.2\cdot10^{-6}  $  \\
+    GHG (kgCO2eq per 1000kcal)    & $\approx 5.03 $  & $\approx 1.4\cdot10^{-5}$    \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -215,7 +219,7 @@ We found based on statistical analysis that not only total emissions but also GH
 
 \section{Conclusion}
 \label{conclusion}
-Our results demonstrate a significant difference between plant- and animal-based products, not only w.r.t. their total emissions but also when accounting for nutritional value. 
+Our results demonstrate a significant difference between plant- and animal-based products, not only with respect to their total emissions but also when accounting for nutritional value. 
 
 \section{Limitations and Outlook}
 \label{limitations}
@@ -223,12 +227,13 @@ How methane is treated which is a shorter-lived, but more powerful greenhouse ga
 
 Unfortunately data is not available to present this breakdown by country or region
 
-Compare difference between the worst and best producers. This means there is an opportunity to reduce the impacts of food production by optimizing for the lowest-impact producers. However, what is also clear is that this does not change the ordering of the impacts of different foods. It's still the case that nearly all beef and lamb producers have a high carbon footprint higher than plant-based alternatives, even if we opt for the best(lowest-impact) producers.
+Compare difference between the with respect toand best producers. This means there is an opportunity to reduce the impacts of food production by optimizing for the lowest-impact producers. However, what is also clear is that this does not change the ordering of the impacts of different foods. It's still the case that nearly all beef and lamb producers have a high carbon footprint higher than plant-based alternatives, even if we opt for the best(lowest-impact) producers.
 \begin{itemize}
   \item reducing GHG
   \item animal welfare
   \item biodiversity
-  \item Health: While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient w.r.t providing recommended micronutiernt levels (e.g. vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutirent insufficiencies. 
+  \item Health: While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient with respect toproviding recommended micronutiernt levels (e.g. vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutirent insufficiencies. 
+  \item second test: unclear if test is adequate since data seems to follow bimodal distribution
   \end{itemize}
   
 {\small
