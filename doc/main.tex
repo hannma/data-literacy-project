@@ -196,15 +196,14 @@ Now, we will consider \textit{plant-based} and \textit{not plant-based} w.r.t.  
   \caption{Results of applying Welch's Hypothesis Test}
   \label{sample-table}
   \centering
-  \begin{tabular}{lllll}
+  \begin{tabular}{lll}
     \toprule
-    \multicolumn{1}{c}{}&\multicolumn{2}{c}{Plant-based} &\multicolumn{2}{c}{Animal-based}                   \\
-    \cmidrule(r){2-5}
-    Feature     & Test-Statistic   & $\alpha$  & Test-Statistic  & $\alpha$\\
+    %\multicolumn{1}{c}{}&\multicolumn{2}{c}{Plant-based} &%\multicolumn{2}{c}{Animal-based}                   \\
+    %\cmidrule(r){2-5}
+    Feature     & Test-Statistic   & p-value  \\
     \midrule
-    Total Emissions & Input terminal  & $\sim$100     \\
-    GHG     & Output terminal & $\sim$10      \\
-  
+    Total Emissions &$\sim$6.49  & $\sim$0.00022\%    \\
+    GHG     & $\sim$5.03   & $\sim$0.0014\%   \\
     \bottomrule
   \end{tabular}
 \end{table}
