@@ -30,7 +30,15 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 
+% Figures
+\usepackage{subcaption}
+
 % References and Bibliography
+\usepackage[numbered]{bookmark} % Fixes false PDF table of contents
+\usepackage{natbib}
+\setcitestyle{numbers,sort&compress,square,comma}
+\usepackage{bibentry}
+\nobibliography*
 \usepackage{url}
 \usepackage{hyperref}
 \hypersetup{
@@ -40,25 +48,16 @@
   urlcolor={blue!50!black}
 }
 \usepackage{cleveref}
-\usepackage[numbered]{bookmark} % Fixes false PDF table of contents
-\usepackage{natbib}
-\setcitestyle{numbers,sort&compress,square,comma}
-\usepackage{bibentry}
-\nobibliography*
+
 
 \title{Can Plant-based Diets Help Solve Climate Change?}
 
 
 \author{%
-  Hanna Dettki\thanks{Equal contribution.} \\
+  Hanna Dettki\thanks{Equal contribution.}\hspace{4em} Davide Mornatta$^{*}$  \\[0.5em]
   Department of Computer Science\\
   University of Tübingen\\
-  \texttt{hanna.dettki@student.uni-tuebingen.de} \\
-  \And
-  Davide Mornatta$^{*}$  \\
-  Department of Computer Science\\
-  University of Tübingen\\
-  \texttt{davide.mornatta@student.uni-tuebingen.de} \\
+  \texttt{\{hanna.dettki, davide.mornatta\}@student.uni-tuebingen.de}
   % \AND
   % Coauthor \\
   % Affiliation \\
@@ -86,7 +85,7 @@
 
 \section{Introduction}
 
-Climate change presents a major global threat. In order to avoid a climate disaster, radical change is needed. This concerns everything, from policies on a global and national level, to choices taken by the individual on a daily basis. \textcolor{red}{TODO: citation}
+Climate change presents a major global threat. In order to avoid a climate disaster, radical change is needed. This concerns everything, from policies on a global and national level, to choices taken by the individual on a daily basis \cite{IPCC}. 
 However, individuals motivated and willing to solve climate change by pursueing a sustainable life are faced with many obstacles to do so effortlessly. According to the UN, food, energy and water are the culprits for an unsustainable world, in particular in light of rapid population growth \cite{Ritchie2020}.
  Importantly, food systems are responsible for a third of global anthropogenic greenhouse gas emissions \cite{Crippa2021}. At the same time, food choices are to a large extent up to the individual.  However,  the emission cost of different food options are  typically not accessible, which is why individuals are  not easily able to adhere to  a climate-friendly diet. This shows that a significant lever contributing to solving climate change is not pulled.
 \paragraph*{Research Question}
@@ -142,8 +141,10 @@ The code to the data preprocessing and analysis can be found at: \par
 \centerline{\url{https://github.com/hannma/data-literacy-project.git}}
 
 \subsection*{Hypothesis Testing}
-In order  to decide as to whether the data supports our hypothesis, we will run a T-test, which tests, if the two distributions have equal means (Null-hypothesis).  Since the samples are neither of same size, nor of same variance and are assumed to be independent, we opt for the independent unequal variance T-Test, also known as \textit{Welch's Test}. %\cite{WelchTest}. 
-%\cite{WelchTest} 
+In order  to decide as to whether the data supports our hypothesis, we will run a T-test, which tests, if the two distributions have equal means (Null-hypothesis).  Since the samples are neither of same size, nor of same variance and are assumed to be independent, we opt for the independent unequal variance T-Test, also known as \textit{Welch's Test} \cite{Welch1947}. 
+
+
+
 The test-statistic is computed as follows:
 \begin{equation}\label{eq:t-test}
   t = \frac{\bar{X}-\bar{Y}}{\sqrt{\sigma^2_{X}+\sigma^2_{Y}}}
@@ -156,7 +157,6 @@ where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard devi
  We will consider \textit{plant-based} and \textit{not plant-based} with respect to  the two features \textit{Total emissions} and \textit{GHG (kgCO2eq per 1000kcal)} respectively.
 \paragraph*{Kernel density estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we have to ensure that our assumption of Gaussian distributed data is reasonable.  We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. \cite{Seaborn} Plant-based and not-plant-based food categories are depicted with respect to their total emissions in \Cref{fig:emissions}.
 \begin{figure}[h]
-  \label{fig:emissions}
   \centering
   \includegraphics[width=0.5\textwidth]{figures/emissions.pdf}
   \caption{Total emissions for plant-based and animal-based food categories}
@@ -180,21 +180,29 @@ The transformed data now seem to follow a  Gaussian distribution and we therefor
 
 Since it is very important that everybody has access to diets that meet all the nutritional requirements, we will now consider \textit{plant-based} and \textit{not plant-based} with respect to their nutritional value (feature \textit{GHG in kgCO2eq per 1000kcal}).
 
-
-
-\begin{figure}[h]
+\begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{figures/ghg.pdf}
-  \caption{GHG-Emissions  (kgCO2eq per 1000kcal) for plant-based and animal-based food categories}
-  \label{fig:ghg}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figures/ghg.pdf}
+    \caption{Raw data.}
+    \label{fig:ghg}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figures/ghg-log.pdf}
+    \caption{Log-transformed data.}
+    \label{fig:ghg-log}
+  \end{subfigure}
+  \caption{GHG-Emissions (kgCO2eq per 1000kcal) for plant-based and animal-based food categories.}
+  \label{fig:ghg-combined}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/ghg-log.pdf}
-    \caption{Log-transformed data: GHG-Emissions (kgCO2eq per 1000kcal) for plant-based and animal-based food categories}
-    \label{fig:ghg-log}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{figures/ghg-log.pdf}
+%     \caption{Log-transformed data: GHG-Emissions (kgCO2eq per 1000kcal) for plant-based and animal-based food categories}
+%     \label{fig:ghg-log}
+% \end{figure}
 
 
 
@@ -260,11 +268,12 @@ Cheese & 150\\
 
 \paragraph*{Emissions calculation} The total emission of a daily diet has been computed by the sum of the single contributes of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet.
 
-\textcolor{red}{TODO: describe results}
+\textcolor{red}{TODO: describe results: what did we find when comparing those two examplatory diets?}
+
 \section{Results}
-\begin{table} \label{tbl:results}
+\begin{table} 
+  \label{tbl:results}
   \caption{Results of  Welch's Hypothesis Test}
-  \label{sample-table}
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -282,22 +291,31 @@ We found based on statistical analysis that not only total emissions but also GH
 
 \section{Conclusion}
 \label{conclusion}
-Our results demonstrate a significant difference between plant- and animal-based products, not only with respect to their total emissions but also when accounting for nutritional value. 
+Our results demonstrate a significant difference between plant- and animal-based products, not only with respect to their total emissions but also when accounting for nutritional value. Thus, plant-based diets not only seem to satisfy nutritional requirements \cite{WHO2021} but importantly, also would contribute significantly to solving climate change when done by many. Importantly, eating more plant-based is a clear rule that would help individuals willing to contribute to solving climate change make more informed decisions in their daily life. 
 
 \section{Limitations and Outlook}
 \label{limitations}
-How methane is treated which is a shorter-lived, but more powerful greenhouse gas than CO2  is often discussed.
+Limitations start in the data collection process and stretch into the analysis part, both of which strongly influence the study's plausibility and impact. Some critical points will be briefly discussed for both aspects, followed by  a brief outlook on future work that could be done.
 
-Unfortunately data is not available to present this breakdown by country or region
+\paragraph*{Limitations in the data}
+Seasonality is not considered in the data collection process but clearly affects both energy for cooling and the total emissions of fruits that in Western grocery stores are available year-round irrespective to whether they are in season. A potential solution to control for this confounding variable seasonality might be, to first introduce this information in the data-collection process and second, to condition on this variable in the analysis part.
 
-Compare difference between the with respect toand best producers. This means there is an opportunity to reduce the impacts of food production by optimizing for the lowest-impact producers. However, what is also clear is that this does not change the ordering of the impacts of different foods. It's still the case that nearly all beef and lamb producers have a high carbon footprint higher than plant-based alternatives, even if we opt for the best(lowest-impact) producers.
-\begin{itemize}
-  \item reducing GHG
-  \item animal welfare
-  \item biodiversity
-  \item Health: While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient with respect toproviding recommended micronutiernt levels (e.g. vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutirent insufficiencies. 
-  \item second test: unclear if test is adequate since data seems to follow bimodal distribution
-  \end{itemize}
+Furthermore, it is arguably up for discussion as to how different greenhouse gases are weighted  when calculating the ... as described in  \Cref{data}. For instance, methane is a much shorter-loved but more powerful greenhouse gas then 
+
+
+
+
+\paragraph*{Limitations in the analysis}
+First of all, the assumption of Gaussian-distributed data may be criticized and the following T-Test, which implicitly assumes Gaussian distributed data.
+In particular, the data of plant-based food depicted in \Cref{fig:ghg-log} seems to follow a bimodal distribution as opposed to a Gaussian distribution.
+Second, a more granular analysis regarding the variance within each food-group would be interesting. This could elude to the differences of producers regarding greenhouse gas emissions and may therefore provide the opportunity to further minimize emissions during the food-production process by optimizing towards the lowest-emitting producers. 
+
+\paragraph*{Outlook and future work}
+
+Moreover, it would be interesting to have data by country available. This would be even more interesting if it were accounted for as to how much of those emissions go towards exporting and how many greenhouse gases would be imported in form of goods. Such an analysis would give further room for detecting more and less efficient countries and would hence give room for further minimizing emissions in the less-efficient countries.
+
+While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient with respect to providing recommended micronutrient levels (e.g., vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations \cite{WHO2021}. In particular, the data used in this study covers about 90\% of calorie and protein-intake. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutrient insufficiencies and further research on that end would certainly be insightful.
+
   
 {\small
 \bibliographystyle{unsrtnat}
