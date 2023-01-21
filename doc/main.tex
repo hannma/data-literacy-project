@@ -198,13 +198,13 @@ Since it is very important that everybody has access to diets that meet all the 
 
 
 
-\subsection{Comparing Typical Diets}
+\subsection{Comparing Example Diets}
 We now take an even more granular view at the nutritional value of (non) plant-based diets by considering two typical diets with respect to recommended macro-nutrient make-up (carbohydrates, fat, protein).
 
-\paragraph*{Diet calories and nutrients composition} 
+\paragraph*{Diet calories and nutrients composition}
 The user of these diets is an average woman, whose daily calories intake is around $2000$kcal \cite{NHS}. With regards to the division among macronutrients, it is taken as follows in \Cref{tbl:composition} \cite{Healthline}:
 
-\begin{table} 
+\begin{table}
   \caption{Average woman's daily nutrients intake}
   \label{tbl:composition}
   \centering
@@ -218,6 +218,47 @@ The user of these diets is an average woman, whose daily calories intake is arou
     \bottomrule
   \end{tabular}
 \end{table}
+
+\paragraph*{What the example diets contain}
+The following diets are described by the amount of food category consumed in a day to reach the suggested intake of nutrients, not considering particular recipes or meals, nore guidelines about correct division in ingredients categories. Food categories are named the same as they are named in the dataset used in this research, while nutritional facts of the different foods can easily be found on various famous health websites. The constructed diets can be found in \Cref{tbl:plantdiet} and \Cref{tbl:omnidiet}.
+
+\begin{table}
+\parbox{.45\linewidth}{
+\centering
+\begin{tabular}{c c}
+\hline
+Food Category & Grams\\
+\hline
+Wheat \& Rye (Bread) & 400\\
+Tofu & 300\\
+Bananas & 300\\
+Peas & 200\\
+Nuts & 50\\
+Soymilk & 150\\
+\hline
+\end{tabular}
+\caption{Plant based constructed diet}
+\label{tbl:plantdiet}
+}
+\hfill
+\parbox{.45\linewidth}{
+\centering
+\begin{tabular}{c c}
+\hline
+Food Category & Grams\\
+\hline
+Wheat \& Rye (Bread) & 400\\
+Pig Meat & 200\\
+Bananas & 300\\
+Cheese & 150\\
+\hline
+\end{tabular}
+\caption{Omnivor constructed diet}
+\label{tbl:omnidiet}
+}
+\end{table}
+
+\paragraph*{Emissions calculation} The total emission of a daily diet has been computed by the sum of the single contributes of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet.
 
 \textcolor{red}{TODO: describe results}
 \section{Results}
