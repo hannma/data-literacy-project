@@ -156,31 +156,35 @@ where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard devi
 
  We will consider \textit{plant-based} and \textit{not plant-based} with respect to  the two features \textit{Total emissions} and \textit{GHG (kgCO2eq per 1000kcal)} respectively.
 \paragraph*{Kernel density estimation to check for distribution family} Since \textit{Welch's Test} assumes implicitly Gaussian-distributed data, we have to ensure that our assumption of Gaussian distributed data is reasonable.  We therefore generate a histogram and estimate the kernel density with the Python package Seaborn. \cite{Seaborn} Plant-based and not-plant-based food categories are depicted with respect to their total emissions in \Cref{fig:emissions}.
+
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{figures/emissions.pdf}
-  \caption{Total emissions for plant-based and animal-based food categories}
-  \label{fig:emissions}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figures/emissions.pdf}
+    \caption{Raw data.}
+    \label{fig:emissions}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figures/emissions-log.pdf}
+    \caption{Log-transformed data.}
+    \label{fig:emissions-log}
+  \end{subfigure}
+  \caption{Total emissions for plant-based and animal-based food categories.}
+  \label{fig:emissions-combined}
 \end{figure}
+
 Analyzing \Cref{fig:emissions}, two things can be concluded: First, our hypothesis, that the plant-based and animal-based food products have two different underlying distributions can be confirmed. Second, the distribution over total emissions of plant-based products clearly does not follow a Gaussian distribution. 
 
 \paragraph*{Data transformation}
-We apply the logarithm with basis 10 to the data, which is non-negative. Applying the logarithm, we obtain the kernel density estimation depicted in \Cref{fig:emissions-log} 
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{figures/emissions-log.pdf}
-  \caption{Log-transformed data: Total emissions for plant-based and animal-based food categories}
-  \label{fig:emissions-log}
-\end{figure}
-
+We apply the logarithm with basis 10 to the data, which is non-negative. Applying the logarithm, we obtain the kernel density estimation depicted in \Cref{fig:emissions-log}.
 The transformed data now seem to follow a  Gaussian distribution and we therefore apply the Welch's Test.
 
 \subsubsection*{Accounting  for Nutritional Value: Do plant- and non-plant-based food products significantly differ with respect to their GHG per 1000kcal?}
 
 Since it is very important that everybody has access to diets that meet all the nutritional requirements, we will now consider \textit{plant-based} and \textit{not plant-based} with respect to their nutritional value (feature \textit{GHG in kgCO2eq per 1000kcal}).
 
-\begin{figure}
+\begin{figure}[h]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
     \includegraphics[width=\textwidth]{figures/ghg.pdf}
