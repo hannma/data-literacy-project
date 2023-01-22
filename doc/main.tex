@@ -272,12 +272,10 @@ Cheese & 150\\
 
 \paragraph*{Emissions calculation} The total emission of a daily diet has been computed by the sum of the single contributes of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet.
 
-\textcolor{red}{TODO: describe results: what did we find when comparing those two examplatory diets?}
-
 \section{Results}
-\begin{table} 
-  \label{tbl:results}
+\begin{table}[h]
   \caption{Results of  Welch's Hypothesis Test}
+  \label{tbl:results-test}
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -291,7 +289,23 @@ Cheese & 150\\
   \end{tabular}
 \end{table}
 
-We found based on statistical analysis that not only total emissions but also GHG accounting for nutritional value (in kgCO2eq per 1000kcal) have a p-value of  $p= 2.2\cdot10^{-6} $  and $p= 1.4\cdot10^{-5}$   for the latter one when conducting the unequal variance test with $\alpha = 0.01$.
+\begin{table}[h]
+  \caption{Results of diet emissions calculation}
+  \label{tbl:results-diets}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    %\multicolumn{1}{c}{}&\multicolumn{2}{c}{Plant-based} &%\multicolumn{2}{c}{Animal-based}                   \\
+    %\cmidrule(r){2-5}
+    Diet    & Emissions in kgCO2eq  \\
+    \midrule
+    Plant-based & $2.02$\\
+    Omnivor    &  $5.42$\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+We found based on statistical analysis that not only total emissions but also GHG accounting for nutritional value (in kgCO2eq per 1000kcal) have a p-value of  $p= 2.2\cdot10^{-6} $  and $p= 1.4\cdot10^{-5}$   for the latter one when conducting the unequal variance test with $\alpha = 0.01$. With regards to the diet examples comparison, as seen in \Cref{tbl:results-diets} the plant-based diet emits $2.02$ kgCO2eq while the omnivor one $5.42$ kgCO2eq, i.e. $268\%$ of the first one.
 
 \section{Conclusion}
 \label{conclusion}
