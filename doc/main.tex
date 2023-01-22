@@ -216,7 +216,7 @@ We now take an even more granular view at the nutritional value of (non) plant-b
 \paragraph*{Diet calories and nutrients composition}
 The consumer of these diets is an average woman, whose daily calories intake is around $2000$kcal \cite{NHS}. The division amongst macro-nutrients was taken from \citet{Healthline} and is depicted in  \Cref{tbl:composition}.
 
-\begin{table}
+\begin{table}[h]
   \caption{Average woman's daily nutrients intake}
   \label{tbl:composition}
   \centering
@@ -232,9 +232,9 @@ The consumer of these diets is an average woman, whose daily calories intake is 
 \end{table}
 
 \paragraph*{What the example diets contain}
-The following diets are described by the amount of food category consumed in a day to reach the suggested intake of nutrients, not considering particular recipes or meals, nore guidelines about correct division in ingredients categories. Food categories are named the same as they are named in the dataset used in this research, while nutritional facts of the different foods can easily be found on various famous health websites. The constructed diets can be found in \Cref{tbl:plantdiet} and \Cref{tbl:omnidiet}.
+The following diets are described by the amount of food category consumed in a day in order to reach the suggested intake of nutrients, thus not considering specific recipes or meals, nore guidelines about correct division in ingredients categories. Note that food categories are named the same as they are named in the dataset used in this research, while nutritional facts of the different foods can easily be found on various famous health websites. The crafted diets are shown in \Cref{tbl:plantdiet} and \Cref{tbl:omnidiet}.
 
-\begin{table}
+\begin{table}[h]
 \parbox{.45\linewidth}{
   \caption{Exemplatory Plant-based  Diet}
 \centering
@@ -270,7 +270,11 @@ Cheese & 150\\
 }
 \end{table}
 
-\paragraph*{Emissions calculation} The total emission of a daily diet has been computed by  summing  food  in kgCO2eq per kg weighted by grams, as indicated in the exemplatory diets depicted in \Cref{tbl:plantdiet} \Cref{tbl:omnidiet}.
+\paragraph*{Emissions calculation} The total emissions of a daily diet has been computed by the sum of the single contributions of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet as in \Cref{eq:diet}.
+
+\begin{equation}\label{eq:diet}
+  \textrm{Emissions}_{\textrm{food}} = \frac{\textrm{Total Emissions of the food category} \cdot \textrm{Grams contained in the diet}}{1000g}
+\end{equation}
 
 \section{Results}
 \begin{table}[h]
