@@ -216,7 +216,7 @@ We now take an even more granular view at the nutritional value of (non) plant-b
 \paragraph*{Diet calories and nutrients composition}
 The user of these diets is an average woman, whose daily calories intake is around $2000$kcal \cite{NHS}. With regards to the division among macronutrients, it is taken as follows in \Cref{tbl:composition} \cite{Healthline}:
 
-\begin{table}
+\begin{table}[h]
   \caption{Average woman's daily nutrients intake}
   \label{tbl:composition}
   \centering
@@ -232,11 +232,11 @@ The user of these diets is an average woman, whose daily calories intake is arou
 \end{table}
 
 \paragraph*{What the example diets contain}
-The following diets are described by the amount of food category consumed in a day to reach the suggested intake of nutrients, not considering particular recipes or meals, nore guidelines about correct division in ingredients categories. Food categories are named the same as they are named in the dataset used in this research, while nutritional facts of the different foods can easily be found on various famous health websites. The constructed diets can be found in \Cref{tbl:plantdiet} and \Cref{tbl:omnidiet}.
+The following diets are described by the amount of food category consumed in a day in order to reach the suggested intake of nutrients, thus not considering specific recipes or meals, nore guidelines about correct division in ingredients categories. Note that food categories are named the same as they are named in the dataset used in this research, while nutritional facts of the different foods can easily be found on various famous health websites. The crafted diets are shown in \Cref{tbl:plantdiet} and \Cref{tbl:omnidiet}.
 
-\begin{table}
+\begin{table}[h]
 \parbox{.45\linewidth}{
-  \caption{Plant based constructed diet}
+  \caption{Plant based crafted diet}
 \centering
 \begin{tabular}{c c}
 \toprule
@@ -254,7 +254,7 @@ Soymilk & 150\\
 }
 \hfill
 \parbox{.45\linewidth}{
-  \caption{Omnivor constructed diet}
+  \caption{Omnivor crafted diet}
 \centering
 \begin{tabular}{c c}
 \toprule
@@ -270,7 +270,11 @@ Cheese & 150\\
 }
 \end{table}
 
-\paragraph*{Emissions calculation} The total emission of a daily diet has been computed by the sum of the single contributes of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet.
+\paragraph*{Emissions calculation} The total emissions of a daily diet has been computed by the sum of the single contributes of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet as in \Cref{eq:diet}.
+
+\begin{equation}\label{eq:diet}
+  emissions_{food} = \frac{\textrm{Total Emissions of the food category} * \textrm{Grams contained in the diet}}{1000}
+\end{equation}
 
 \section{Results}
 \begin{table}[h]
