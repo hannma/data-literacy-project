@@ -13,8 +13,9 @@ This dataset has been also augmented manually by us with a column indicating if 
 ### Relevant paths :book:
 - **analysis/data_exploration.ipynb**: notebook containing data exploration and hypothesis testing
 - **analysis/example_diets.ipynb**: notebook containing a comparison between two hand crafted daily diets
+- **report.pdf**: research paper describing the project
 - **data/**: folder containing the dataset
-- **doc/**: folder containing all the latex material, as well as the final report
+- **doc/**: folder containing all the latex material
 
 ### Team members :busts_in_silhouette:
 
