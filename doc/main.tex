@@ -32,6 +32,7 @@
 
 % Figures
 \usepackage{subcaption}
+\usepackage{wrapfig}
 
 % References and Bibliography
 \usepackage[numbered]{bookmark} % Fixes false PDF table of contents
@@ -85,9 +86,8 @@
 
 \section{Introduction}
 
-Climate change presents a major global threat. In order to avoid a climate disaster, radical change is needed. This concerns everything, from policies on a global and national level, to choices taken by the individual on a daily basis \cite{IPCC}. 
-However, individuals motivated and willing to solve climate change by pursueing a sustainable life are faced with many obstacles to do so effortlessly. According to the UN, food, energy and water are the culprits for an unsustainable world, in particular in light of rapid population growth \cite{Ritchie2020}.
- Importantly, food systems are responsible for a third of global anthropogenic greenhouse gas emissions \cite{Crippa2021}. At the same time, food choices are to a large extent up to the individual.  However,  the emission cost of different food options are  typically not accessible, which is why individuals are  not easily able to adhere to  a climate-friendly diet. This shows that a significant lever contributing to solving climate change is not pulled due to a lack of knowledge.
+ Climate change is a serious global problem. To prevent disasters, big changes are needed - both in government policies and personal choices.\cite{IPCC}
+Food, energy and water contribute to the problem, particularly due to population growth.\cite{Ritchie2020} However, people who want to live sustainably often face obstacles. Food systems alone are responsible for a third of greenhouse gas emissions\cite{Crippa2021}, yet the emissions of different food options are often not widely known, making it difficult for individuals to make climate-friendly choices. This highlights the importance and lack of education in addressing climate change.
 \paragraph*{Research Question}
 Therefore, we investigate the environmental impact of the most common food categories, which is a first step towards  providing more information in the jungle of food choices that everybody is presented with. In particular, we hypothesize that  plant-based diets  have a significantly smaller CO$_2$-footprint than  diets including animal-derived products. %in the typical Western diet.
 
@@ -131,14 +131,14 @@ plant-based products are strongly anti-correlated with total emissions ($\rho = 
  This is indicative of our hypothesis that plant-based products emit significantly less than animal-derived products as stated in  \Cref{data}.
 
 
-\begin{figure}[h]
+\begin{wrapfigure}{r}{0.50\textwidth}
   \centering
-  \includegraphics[width=0.65\textwidth]{figures/heat-map.pdf}
+  \includegraphics[width=0.50\textwidth]{figures/heat-map.pdf}
   \caption{Correlation of a subset of features depicted in a heatmap. Plant-based products are  anti-correlated ($\rho \in [-1.0, -0.5]$) with every other feature, in particular \textit{Total Emissions}, with the  exception of \textit{Transport} and \textit{Packaging}.}
   \label{fig:corr}
-\end{figure}
-The code to the data preprocessing and analysis can be found at: \par
-\centerline{\url{https://github.com/hannma/data-literacy-project.git}}
+\end{wrapfigure}
+
+The code to the data preprocessing and analysis can be found at: {\url{https://github.com/hannma/data-literacy-project.git}}
 
 \subsection*{Hypothesis Testing}
 In order  to decide as to whether the data supports our hypothesis, we will run a T-test, which tests, if the two distributions have equal means (Null-hypothesis).  Since the samples are neither of same size, nor of same variance and are assumed to be independent, we opt for the independent unequal variance T-Test, also known as \textit{Welch's Test} \cite{Welch1947}. 
@@ -160,13 +160,15 @@ where $\bar{X}$ and  $\bar{Y}$ are the sample mean with respective standard devi
 \begin{figure}[h]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figures/emissions.pdf}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/emissions.pdf}
     \caption{Raw data.}
     \label{fig:emissions}
   \end{subfigure}%
   \hfill
   \begin{subfigure}[b]{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figures/emissions-log.pdf}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/emissions-log.pdf}
     \caption{Log-transformed data.}
     \label{fig:emissions-log}
   \end{subfigure}
@@ -187,13 +189,15 @@ Since it is very important that everybody has access to diets that meet all the 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figures/ghg.pdf}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ghg.pdf}
     \caption{Raw data.}
     \label{fig:ghg}
   \end{subfigure}%
   \hfill
   \begin{subfigure}[b]{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figures/ghg-log.pdf}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ghg-log.pdf}
     \caption{Log-transformed data.}
     \label{fig:ghg-log}
   \end{subfigure}
@@ -270,16 +274,12 @@ Cheese & 150\\
 }
 \end{table}
 
-\paragraph*{Emissions calculation} The total emissions of a daily diet is computed by the sum of the single contributions of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet as stated in \Cref{eq:diet}.
-
-\begin{equation}\label{eq:diet}
-  \textrm{Emissions}_{\textrm{food}} = \frac{\textrm{Total Emissions of the food category} \cdot \textrm{Grams contained in the diet}}{1000g}
-\end{equation}
+\paragraph*{Emissions calculation} The total emissions of a daily diet is computed by the sum of the single contributions of every food category in kgCO2eq per kg, each calculated in proportion of the amount consumed in the diet.
 
 \section{Results}
 \label{sec:results}
 
-\begin{table}[h]
+\begin{wraptable}{l}{0.40\textwidth}
   \caption{Results of  Welch's Hypothesis Test}
   \label{tbl:results-test}
   \centering
@@ -289,13 +289,15 @@ Cheese & 150\\
     %\cmidrule(r){2-5}
     Feature     & Test-Statistic   & p-value  \\
     \midrule
-    Total Emissions &$\approx 6.49$  & $ 2.2\cdot10^{-6}  $  \\
-    GHG (kgCO2eq per 1000kcal)    & $\approx 5.03 $  & $ 1.4\cdot10^{-5}$    \\
+    Tot.Emissions &$\approx 6.49$  & $ 2.2\cdot10^{-6}  $  \\
+    GHG  & $\approx 5.03 $  & $ 1.4\cdot10^{-5}$    \\
     \bottomrule
   \end{tabular}
-\end{table}
+\end{wraptable}
 
-\begin{table}[h]
+Based on statistical analysis we found that not only total emissions but also GHG emissions when accounting for nutritional value (in kgCO2eq per 1000kcal) have a p-value of  $p= 2.2\cdot10^{-6} $  and $p= 1.4\cdot10^{-5}$  when conducting the unequal variance test with $\alpha = 0.01$ (see \Cref{tbl:results-test}). With regards to the diet examples comparison, as seen in \Cref{tbl:results-diets}, the plant-based diet emits $2.02$ kgCO2eq while the omnivor one emits $5.42$ kgCO2eq, i.e. $268\%$ of the first one.
+
+\begin{wraptable}{r}{0.40\textwidth}
   \caption{Results of diet emissions calculation}
   \label{tbl:results-diets}
   \centering
@@ -303,15 +305,15 @@ Cheese & 150\\
     \toprule
     %\multicolumn{1}{c}{}&\multicolumn{2}{c}{Plant-based} &%\multicolumn{2}{c}{Animal-based}                   \\
     %\cmidrule(r){2-5}
-    Diet    & Emissions in kgCO2eq  \\
+    Diet    & Emissions (kgCO2eq)  \\
     \midrule
     Plant-based & $2.02$\\
     Omnivor    &  $5.42$\\
     \bottomrule
   \end{tabular}
-\end{table}
+\end{wraptable}
 
-Based on statistical analysis we found that not only total emissions but also GHG emissions when accounting for nutritional value (in kgCO2eq per 1000kcal) have a p-value of  $p= 2.2\cdot10^{-6} $  and $p= 1.4\cdot10^{-5}$  when conducting the unequal variance test with $\alpha = 0.01$ (see \Cref{tbl:results-test}). With regards to the diet examples comparison, as seen in \Cref{tbl:results-diets}, the plant-based diet emits $2.02$ kgCO2eq while the omnivor one emits $5.42$ kgCO2eq, i.e. $268\%$ of the first one.
+
 
 
 \section{Limitations}
@@ -322,7 +324,6 @@ Limitations start in the data collection process and stretch into the analysis p
 A wide variety of fruits  are  available year-round in Western grocery stores  irrespective as to whether  they are in season or are native to the Northern hemisphere.\footnote{Note that this study's authors are  Europeans and hence everything is written though the perspective of such but likely also applies to North Americans.} 
 Seasonality is not considered in the data collection process but clearly affects both energy for cooling and  potentially transport (when imported in off-seasons) and hence affects total emissions.  
 A potential solution to control for this confounding variable \textit{seasonality} could be, to first introduce this information in the data-collection process and second, to condition on this variable in the analysis part.
-
 Furthermore, it is arguably up for discussion as to how different greenhouse gases are weighted  when calculating the ``carbon dioxide-equivalents (CO$_{2}$eq)'' as described in  \Cref{data}. For instance, methane is a much shorter-lived but more powerful greenhouse gas than CO$_{2}$.
 
 
@@ -339,10 +340,7 @@ Second, a more granular analysis regarding the variance within each food-group w
 Our results demonstrate a significant difference between plant- and animal-based products, not only with respect to their total emissions but also when accounting for nutritional value. Thus, plant-based diets not only seem to satisfy nutritional requirements \cite{WHO2021} but importantly, also would contribute significantly to solving climate change when consumed by many. Importantly, eating more plant-based is a clear rule that would help individuals willing to contribute to solving climate change, to make more informed decisions in their daily life. 
 
 \paragraph*{Outlook and future work}
-%ToDO: re-formulate more high level
-A more granular analysis regarding emissions by country would provide further information that would help detect inefficiencies regarding emissions and would therefore allow for additional implementations aimed at reducing global warming.
-
-While there are some concerns, that vegan diets (i.e, plant-based diets that exclude all forms of animal products in their entirety) are not sufficient with respect to providing recommended micronutrient levels (e.g., vitamin B12, zinc, iron, etc.), they generally meet protein intake recommendations \cite{WHO2021}. In particular, the food-groups  used in the dataset used in this study represent   about 90\% of global calorie and protein-intake. Nonetheless, individuals who consume a vegan diet should remain aware regarding potential micronutrient insufficiencies and further research on that end would certainly be insightful.
+A more detailed analysis of emissions by country would reveal inefficiencies and aid in reducing global warming. Vegan diets, while potentially lacking in certain micronutrients, usually meet protein intake recommendations and account for 90\% of global calorie and protein intake.\cite{WHO2021}. However, people on vegan diets should be aware of potential micronutrient deficiencies and further research is needed in this area.
 
   
 {\small

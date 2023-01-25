@@ -23,6 +23,7 @@
 *.png
 *.pdf
 .~lock.*
+!report.pdf
 !doc/figures/*.pdf
 !doc/figures/*.png
 !literature/*
